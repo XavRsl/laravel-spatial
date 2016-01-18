@@ -1,9 +1,5 @@
-Laravel postgis extension
+Laravel spatial extension
 =========================
-
-[![Build Status](https://travis-ci.org/phaza/laravel-postgis.svg?branch=master)](https://travis-ci.org/phaza/laravel-postgis)
-[![Code Climate](https://codeclimate.com/github/phaza/laravel-postgis/badges/gpa.svg)](https://codeclimate.com/github/phaza/laravel-postgis)
-[![Coverage Status](https://coveralls.io/repos/phaza/laravel-postgis/badge.svg)](https://coveralls.io/r/phaza/laravel-postgis)
 
 ## Features
 
@@ -16,23 +12,17 @@ Laravel postgis extension
 
 ## Installation
 
-    composer require phaza/laravel-postgis 
+    composer require xavrsl/laravel-spatial 
 
 Next add the DatabaseServiceProvider to your `config/app.php` file.
 
-    'Phaza\LaravelPostgis\DatabaseServiceProvider',
+    'Xavrsl\LaravelSpatial\DatabaseServiceProvider',
 
 That's all.
 
 ## Usage
 
-First of all, make sure to enable postgis.
-
-    CREATE EXTENSION postgis;
-
-To verify that postgis is enabled
-
-    SELECT postgis_full_version();
+First of all, make sure you are using Mysql 5.7.
 
 ### Migrations
 
@@ -48,7 +38,7 @@ Open the created migrations with your editor.
 
 ```PHP
 use Illuminate\Database\Migrations\Migration;
-use Phaza\LaravelPostgis\Schema\Blueprint;
+use Xavrsl\LaravelSpatial\Schema\Blueprint;
 
 class CreateLocationsTable extends Migration {
 
@@ -93,33 +83,28 @@ Available blueprint geometries:
  * multipolygon
  * geometrycollection
 
-other methods:
-
- * enablePostgis
- * disablePostgis
-
 ### Models
 
-All models which are to be PostGis enabled **must** use the *PostgisTrait*.
+All models which are to be Spatial enabled **must** use the *SpatialTrait*.
 
-You must also define an array called `$postgisFields` which defines
+You must also define an array called `$spatialFields` which defines
 what attributes/columns on your model are to be considered geometry objects.
 
 ```PHP
 use Illuminate\Database\Eloquent\Model;
-use Phaza\LaravelPostgis\Eloquent\PostgisTrait;
-use Phaza\LaravelPostgis\Geometries\Point;
+use Xavrsl\LaravelSpatial\Eloquent\SpatialTrait;
+use xavrsl\LaravelSpatial\Geometries\Point;
 
 class Location extends Model
 {
-    use PostgisTrait;
+    use SpatialTrait;
 
     protected $fillable = [
         'name',
         'address'
     ];
 
-    protected $postgisFields = [
+    protected $spatialFields = [
         Point::class,
         Polygon::class,
     ];
