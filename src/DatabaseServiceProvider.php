@@ -1,14 +1,13 @@
-<?php namespace Phaza\LaravelPostgis;
+<?php namespace Xavrsl\LaravelSpatial;
 
 use Illuminate\Database\DatabaseManager;
-use Phaza\LaravelPostgis\Connectors\ConnectionFactory;
-use Bosnadev\Database\DatabaseServiceProvider as PostgresDatabaseServiceProvider;
+use Xavrsl\LaravelSpatial\Connectors\ConnectionFactory;
 
 /**
  * Class DatabaseServiceProvider
  * @package Phaza\LaravelPostgis
  */
-class DatabaseServiceProvider extends PostgresDatabaseServiceProvider
+class DatabaseServiceProvider extends \Illuminate\Database\DatabaseServiceProvider
 {
     /**
      * Register the service provider.

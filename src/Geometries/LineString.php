@@ -1,4 +1,4 @@
-<?php namespace Phaza\LaravelPostgis\Geometries;
+<?php namespace Xavrsl\LaravelSpatial\Geometries;
 
 class LineString extends PointCollection implements GeometryInterface
 {

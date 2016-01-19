@@ -1,6 +1,6 @@
 <?php
 
-use Phaza\LaravelPostgis\PostgisConnection;
+use Phaza\LaravelPostgis\SpatialConnection;
 use Phaza\LaravelPostgis\Schema\Builder;
 use Stubs\PDOStub;
 
@@ -11,7 +11,7 @@ class PostgisConnectionTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $pgConfig = ['driver' => 'pgsql', 'prefix' => 'prefix', 'database' => 'database', 'name' => 'foo'];
-        $this->postgisConnection = new PostgisConnection(new PDOStub(), 'database', 'prefix', $pgConfig);
+        $this->postgisConnection = new SpatialConnection(new PDOStub(), 'database', 'prefix', $pgConfig);
     }
 
     public function testGetSchemaBuilder()

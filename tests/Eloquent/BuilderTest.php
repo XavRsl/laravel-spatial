@@ -6,7 +6,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\Expression;
 use Mockery as m;
 use Phaza\LaravelPostgis\Eloquent\Builder;
-use Phaza\LaravelPostgis\Eloquent\PostgisTrait;
+use Phaza\LaravelPostgis\Eloquent\SpatialTrait;
 use Phaza\LaravelPostgis\Geometries\LineString;
 use Phaza\LaravelPostgis\Geometries\Point;
 use Phaza\LaravelPostgis\Geometries\Polygon;
@@ -90,7 +90,7 @@ class BuilderTest extends BaseTestCase
 
 class TestBuilderModel extends Model
 {
-    use PostgisTrait;
+    use SpatialTrait;
 
     protected $postgisFields = [
       'point'      => Point::class,

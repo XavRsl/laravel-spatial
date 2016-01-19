@@ -1,12 +1,12 @@
-<?php namespace Phaza\LaravelPostgis\Eloquent;
+<?php namespace Xavrsl\LaravelSpatial\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Arr;
-use Phaza\LaravelPostgis\Exceptions\PostgisFieldsNotDefinedException;
-use Phaza\LaravelPostgis\Geometries\Geometry;
-use Phaza\LaravelPostgis\Geometries\GeometryInterface;
+use Xavrsl\LaravelSpatial\Exceptions\PostgisFieldsNotDefinedException;
+use Xavrsl\LaravelSpatial\Geometries\Geometry;
+use Xavrsl\LaravelSpatial\Geometries\GeometryInterface;
 
-trait PostgisTrait
+trait SpatialTrait
 {
 
     public $geometries = [];
@@ -26,7 +26,7 @@ trait PostgisTrait
         foreach ($this->attributes as $key => &$value) {
             if ($value instanceof GeometryInterface && ! $value instanceof GeometryCollection) {
                 $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
-                $value = $this->getConnection()->raw(sprintf("ST_GeogFromText('%s')", $value->toWKT()));
+                $value = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s', 4326)", $value->toWKT()));
             }  else if ($value instanceof GeometryInterface && $value instanceof GeometryCollection) {
                 $this->geometries[$key] = $value; //Preserve the geometry objects prior to the insert
                 $value = $this->getConnection()->raw(sprintf("ST_GeomFromText('%s', 4326)", $value->toWKT()));
@@ -44,10 +44,10 @@ trait PostgisTrait
 
     public function setRawAttributes(array $attributes, $sync = false)
     {
-        $pgfields = $this->getPostgisFields();
+        $spatialFields = $this->getSpatialFields();
 
         foreach ($attributes as $attribute => &$value) {
-            if (in_array($attribute, $pgfields) && is_string($value) && strlen($value) >= 15) {
+            if (in_array($attribute, $spatialFields) && is_string($value) && strlen($value) >= 15) {
                 $value = Geometry::fromWKB($value);
             }
         }
@@ -55,14 +55,14 @@ trait PostgisTrait
         parent::setRawAttributes($attributes, $sync);
     }
 
-    public function getPostgisFields()
+    public function getSpatialFields()
     {
-        if (property_exists($this, 'postgisFields')) {
-            return Arr::isAssoc($this->postgisFields) ? //Is the array associative?
-                array_keys($this->postgisFields) : //Returns just the keys to preserve compatibility with previous versions
-                $this->postgisFields; //Returns the non-associative array that doesn't define the geometry type.
+        if (property_exists($this, 'spatialFields')) {
+            return Arr::isAssoc($this->spatialFields) ? //Is the array associative?
+                array_keys($this->spatialFields) : //Returns just the keys to preserve compatibility with previous versions
+                $this->spatialFields; //Returns the non-associative array that doesn't define the geometry type.
         } else {
-            throw new PostgisFieldsNotDefinedException(__CLASS__ . ' has to define $postgisFields');
+            throw new SpatialFieldsNotDefinedException(__CLASS__ . ' has to define $spatialFields');
         }
 
     }

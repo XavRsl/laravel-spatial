@@ -2,7 +2,7 @@
 
 use Illuminate\Container\Container;
 use Phaza\LaravelPostgis\Connectors\ConnectionFactory;
-use Phaza\LaravelPostgis\PostgisConnection;
+use Phaza\LaravelPostgis\SpatialConnection;
 use Stubs\PDOStub;
 
 class ConnectionFactoryBaseTest extends BaseTestCase
@@ -16,6 +16,6 @@ class ConnectionFactoryBaseTest extends BaseTestCase
         $factory->shouldAllowMockingProtectedMethods();
         $conn = $factory->createConnection('pgsql', $pdo, 'database', 'prefix', $pgConfig);
 
-        $this->assertInstanceOf(PostgisConnection::class, $conn);
+        $this->assertInstanceOf(SpatialConnection::class, $conn);
     }
 }

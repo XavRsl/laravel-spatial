@@ -1,10 +1,10 @@
-<?php namespace Phaza\LaravelPostgis\Schema\Grammars;
+<?php namespace Xavrsl\LaravelSpatial\Schema\Grammars;
 
+use Illuminate\Database\Schema\Grammars\MySqlGrammar;
 use Illuminate\Support\Fluent;
-use Phaza\LaravelPostgis\Schema\Blueprint;
-use Bosnadev\Database\Schema\Grammars\PostgresGrammar;
+use Xavrsl\LaravelSpatial\Schema\Blueprint;
 
-class PostgisGrammar extends PostgresGrammar
+class SpatialGrammar extends MySqlGrammar
 {
     /**
      * Adds a statement to add a point geometry column
@@ -14,7 +14,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typePoint(Fluent $column)
     {
-        return 'GEOGRAPHY(POINT, 4326)';
+        return 'POINT';
     }
 
     /**
@@ -25,7 +25,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typeMultipoint(Fluent $column)
     {
-        return 'GEOGRAPHY(MULTIPOINT, 4326)';
+        return 'MULTIPOINT';
     }
 
     /**
@@ -36,7 +36,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typePolygon(Fluent $column)
     {
-        return 'GEOGRAPHY(POLYGON, 4326)';
+        return 'POLYGON';
     }
 
     /**
@@ -47,7 +47,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typeMultipolygon(Fluent $column)
     {
-        return 'GEOGRAPHY(MULTIPOLYGON, 4326)';
+        return 'MULTIPOLYGON';
     }
 
     /**
@@ -58,7 +58,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typeLinestring(Fluent $column)
     {
-        return 'GEOGRAPHY(LINESTRING, 4326)';
+        return 'LINESTRING';
     }
 
     /**
@@ -69,7 +69,7 @@ class PostgisGrammar extends PostgresGrammar
      */
     public function typeMultilinestring(Fluent $column)
     {
-        return 'GEOGRAPHY(MULTILINESTRING, 4326)';
+        return 'MULTILINESTRING';
     }
 
     /**
@@ -95,30 +95,6 @@ class PostgisGrammar extends PostgresGrammar
         $command->type = 'GEOMETRYCOLLECTION';
 
         return $this->compileGeometry($blueprint, $command);
-    }
-
-    /**
-     * Adds a statement to create the postgis extension
-     *
-     * @param Blueprint $blueprint
-     * @param Fluent $command
-     * @return string
-     */
-    public function compileEnablePostgis(Blueprint $blueprint, Fluent $command)
-    {
-        return 'CREATE EXTENSION postgis';
-    }
-
-    /**
-     * Adds a statement to drop the postgis extension
-     *
-     * @param Blueprint $blueprint
-     * @param Fluent $command
-     * @return string
-     */
-    public function compileDisablePostgis(Blueprint $blueprint, Fluent $command)
-    {
-        return 'DROP EXTENSION postgis';
     }
 
     /**

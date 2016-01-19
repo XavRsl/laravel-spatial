@@ -1,6 +1,9 @@
-<?php namespace Phaza\LaravelPostgis;
+<?php namespace Xavrsl\LaravelSpatial;
 
-class PostgisConnection extends \Bosnadev\Database\PostgresConnection
+
+use Illuminate\Database\MySqlConnection;
+
+class SpatialConnection extends MySqlConnection
 {
     /**
      * Get the default schema grammar instance.
@@ -9,7 +12,7 @@ class PostgisConnection extends \Bosnadev\Database\PostgresConnection
      */
     protected function getDefaultSchemaGrammar()
     {
-        return $this->withTablePrefix(new Schema\Grammars\PostgisGrammar);
+        return $this->withTablePrefix(new Schema\Grammars\SpatialGrammar);
     }
 
 

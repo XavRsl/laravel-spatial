@@ -1,9 +1,9 @@
-<?php namespace Phaza\LaravelPostgis\Connectors;
+<?php namespace Xavrsl\LaravelSpatial\Connectors;
 
 use PDO;
-use Phaza\LaravelPostgis\PostgisConnection;
+use Xavrsl\LaravelSpatial\SpatialConnection;
 
-class ConnectionFactory extends \Bosnadev\Database\Connectors\ConnectionFactory
+class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactory
 {
     /**
      * @param string $driver
@@ -11,16 +11,16 @@ class ConnectionFactory extends \Bosnadev\Database\Connectors\ConnectionFactory
      * @param string $database
      * @param string $prefix
      * @param array $config
-     * @return mixed|PostgisConnection
+     * @return mixed|SpatialConnection
      */
-    protected function createConnection($driver, PDO $connection, $database, $prefix = '', array $config = [])
+    protected function createConnection($driver, $connection, $database, $prefix = '', array $config = [])
     {
         if ($this->container->bound($key = "db.connection.{$driver}")) {
             return $this->container->make($key, [$connection, $database, $prefix, $config]);
         }
 
-        if ($driver === 'pgsql') {
-            return new PostgisConnection($connection, $database, $prefix, $config);
+        if ($driver === 'mysql') {
+            return new SpatialConnection($connection, $database, $prefix, $config);
         }
 
         return parent::createConnection($driver, $connection, $database, $prefix, $config);

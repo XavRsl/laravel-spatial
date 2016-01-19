@@ -1,7 +1,7 @@
-<?php namespace Phaza\LaravelPostgis\Eloquent;
+<?php namespace Xavrsl\LaravelSpatial\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Phaza\LaravelPostgis\Geometries\GeometryInterface;
+use Xavrsl\LaravelSpatial\Geometries\GeometryInterface;
 
 class Builder extends EloquentBuilder
 {
@@ -16,9 +16,9 @@ class Builder extends EloquentBuilder
         return parent::update($values);
     }
 
-    protected function getPostgisFields()
+    protected function getSpatialFields()
     {
-        return $this->getModel()->getPostgisFields();
+        return $this->getModel()->getSpatialFields();
     }
 
 

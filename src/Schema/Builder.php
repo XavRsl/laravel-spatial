@@ -1,8 +1,9 @@
-<?php namespace Phaza\LaravelPostgis\Schema;
+<?php namespace Xavrsl\LaravelSpatial\Schema;
 
 use Closure;
+use Illuminate\Database\Schema\MySqlBuilder as SchemaBuilder;
 
-class Builder extends \Bosnadev\Database\Schema\Builder
+class Builder extends SchemaBuilder
 {
     /**
      * Create a new command set with a Closure.
@@ -13,6 +14,10 @@ class Builder extends \Bosnadev\Database\Schema\Builder
      */
     protected function createBlueprint($table, Closure $callback = null)
     {
+        if (isset($this->resolver)) {
+            return call_user_func($this->resolver, $table, $callback);
+        }
+
         return new Blueprint($table, $callback);
     }
 }

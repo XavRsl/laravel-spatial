@@ -2,6 +2,6 @@
 
 use RuntimeException;
 
-class UnknownWKTTypeException extends RuntimeException
+class SpatialFieldsNotDefinedException extends RuntimeException
 {
 }

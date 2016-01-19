@@ -1,4 +1,4 @@
-<?php namespace Phaza\LaravelPostgis\Geometries;
+<?php namespace Xavrsl\LaravelSpatial\Geometries;
 
 class Factory implements \GeoIO\Factory {
     public function createPoint( $dimension, array $coordinates, $srid = null )

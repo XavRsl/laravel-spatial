@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
-use Phaza\LaravelPostgis\Eloquent\PostgisTrait;
+use Phaza\LaravelPostgis\Eloquent\SpatialTrait;
 use Phaza\LaravelPostgis\Geometries\Point;
-use Phaza\LaravelPostgis\PostgisConnection;
+use Phaza\LaravelPostgis\SpatialConnection;
 
 class PostgisTraitTest extends BaseTestCase
 {
@@ -49,7 +49,7 @@ class PostgisTraitTest extends BaseTestCase
 
 class TestModel extends Model
 {
-    use PostgisTrait;
+    use SpatialTrait;
 
     protected $postgisFields = [
         'point' => Point::class
@@ -64,7 +64,7 @@ class TestModel extends Model
             static::$pdo = m::mock('TestPDO')->makePartial();
         }
 
-        return new PostgisConnection(static::$pdo);
+        return new SpatialConnection(static::$pdo);
     }
 
     public function testrelatedmodels()

@@ -1,6 +1,9 @@
 Laravel spatial extension
 =========================
 
+## BEWARE !!!
+Do not use this package. It is in a development phase and is not production ready. It may never be...
+
 ## Features
 
  * Work with geometry classes instead of arrays. (`$myModel->myPoint = new Point(1,2)`)
@@ -105,8 +108,8 @@ class Location extends Model
     ];
 
     protected $spatialFields = [
-        Point::class,
-        Polygon::class,
+        'location' => Point::class,
+        'area' => Polygon::class,
     ];
 
 }

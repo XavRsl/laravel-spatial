@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Connection;
-use Phaza\LaravelPostgis\PostgisConnection;
+use Phaza\LaravelPostgis\SpatialConnection;
 use Phaza\LaravelPostgis\Schema\Blueprint;
 use Phaza\LaravelPostgis\Schema\Grammars\PostgisGrammar;
 
@@ -113,7 +113,7 @@ class PostgisGrammarBaseTest extends BaseTestCase
      */
     protected function getConnection()
     {
-        return Mockery::mock(PostgisConnection::class);
+        return Mockery::mock(SpatialConnection::class);
     }
 
     protected function getGrammar()

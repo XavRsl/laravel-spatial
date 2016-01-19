@@ -2,7 +2,7 @@
 
 use BaseTestCase;
 use Mockery;
-use Phaza\LaravelPostgis\PostgisConnection;
+use Phaza\LaravelPostgis\SpatialConnection;
 use Phaza\LaravelPostgis\Schema\Builder;
 use Phaza\LaravelPostgis\Schema\Blueprint;
 
@@ -10,7 +10,7 @@ class BuilderTest extends BaseTestCase
 {
     public function testReturnsCorrectBlueprint()
     {
-        $connection = Mockery::mock(PostgisConnection::class);
+        $connection = Mockery::mock(SpatialConnection::class);
         $connection->shouldReceive('getSchemaGrammar')->once()->andReturn(null);
 
         $mock = Mockery::mock(Builder::class, [$connection]);
